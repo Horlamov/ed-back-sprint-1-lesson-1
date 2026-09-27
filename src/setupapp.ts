@@ -30,7 +30,7 @@ export const setupApp = (app: Express) => {
       availableResolutions: req.body.availableResolutions,
     };
 
-    //3. Добавляем созданное видео newVideo в БД
+    //3. Добавляем созданное видео newVi deo в БД
     db.videos.push(newVideo);
     res.status(HttpStatus.Created).send(newVideo);
   });

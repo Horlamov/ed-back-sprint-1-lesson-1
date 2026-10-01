@@ -1,4 +1,5 @@
 import request = require('supertest');
+import { HttpStatus } from '../src/core/types/http-status';
 const { app } = require('../src/');
 
 describe('/videos', () => {
@@ -17,4 +18,27 @@ describe('/videos', () => {
       .get('/videos/1')
       .expect(404);
   });
+
+  it ('should create course with correct input data', async () => {
+    const createResponse = await request(app)
+      .post('/videos')
+      .send({title: 'it-incubator video'})
+      .expect(HttpStatus.Created)
+
+    const createVideos = createResponse.body;
+    expect(createVideos).toEqual({
+      id: expect.any(Number),
+      title: 'it-incubator video',
+      author: expect.any(String),
+      canBeDownloaded: false,
+      minAgeRestriction: expect.any(Number || null),
+      createdAt: expect.any(String),
+      publicationDate: expect.any(String),
+      availableResolutions: ['P144'],
+    });
+    await request(app)
+      .get('/videos')
+      .expect(HttpStatus.Ok, [createVideos])
+
+  })
 });

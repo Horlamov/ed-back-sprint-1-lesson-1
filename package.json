@@ -1,4 +1,8 @@
 {
+
+  "pnpm": {
+    "onlyBuiltDependencies": ["esbuild", "unrs-resolver"]
+  },
   "name": "uber",
   "version": "1.0.0",
   "main": "src/index.ts",

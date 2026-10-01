@@ -16,7 +16,7 @@ export const setupApp = (app: Express) => {
 
   //Возвращаем все видео
   app.get('/videos', (_req, res) => {
-    res.status(HttpStatus.Ok).send(db.videos);
+    res.status(HttpStatus.Ok_200).send(db.videos);
   });
 
   // Создаем новое видео
@@ -35,13 +35,13 @@ export const setupApp = (app: Express) => {
 
     //3. Добавляем созданное видео newVideo в БД
     db.videos.push(newVideo);
-    res.status(HttpStatus.Created).send(newVideo);
+    res.status(HttpStatus.Created_201).send(newVideo);
   });
 
 
   app.delete('/__tests__/data', (req, res) => {
     db.videos.length = 0; // ✅ очищает существующий массив
-    res.sendStatus(204);
+    res.sendStatus(404);
   });
   return app;
 };

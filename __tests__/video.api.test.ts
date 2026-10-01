@@ -23,7 +23,7 @@ describe('/videos', () => {
     const createResponse = await request(app)
       .post('/videos')
       .send({title: 'it-incubator video'})
-      .expect(HttpStatus.Created)
+      .expect(HttpStatus.Created_201)
 
     const createVideos = createResponse.body;
     expect(createVideos).toEqual({
@@ -38,7 +38,7 @@ describe('/videos', () => {
     });
     await request(app)
       .get('/videos')
-      .expect(HttpStatus.Ok, [createVideos])
+      .expect(HttpStatus.Ok_200, [createVideos])
 
   })
 });

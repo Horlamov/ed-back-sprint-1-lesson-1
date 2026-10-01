@@ -1,7 +1,7 @@
 // core/http-status.ts
 export const HttpStatus = {
-  Ok: 200,
-  NotFound: 404,
-  Created: 201,
-  NoContent: 204,
+  Ok_200: 200,
+  NotFound_404: 404,
+  Created_201: 201,
+  NoContent_204: 204,
 } as const;

@@ -6,6 +6,9 @@ import { Videos } from './core/types/type';
 export const setupApp = (app: Express) => {
   app.use(express.json()); // middleware для парсинга JSON в теле запроса
 
+  // обнуления для теста
+
+
   // основной роут
   app.get('/', (_req, res) => {
     res.status(200).send('Hello world!');
@@ -33,6 +36,11 @@ export const setupApp = (app: Express) => {
     //3. Добавляем созданное видео newVi deo в БД
     db.videos.push(newVideo);
     res.status(HttpStatus.Created).send(newVideo);
+  });
+
+  app.delete('/__tests__/data', (req, res) => {
+    db.videos.length = 0; // ✅ очищает существующий массив
+    res.sendStatus(204);
   });
   return app;
 };

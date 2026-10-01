@@ -2,7 +2,7 @@ import express from 'express';
 import { setupApp } from './setupapp';
 
 // создание приложения
-const app = express();
+export const app = express();
 setupApp(app);
 
 const jsonBodyMiddleWare = express.json();

@@ -25,12 +25,12 @@ export const setupApp = (app: Express) => {
     const newVideo: Videos = {
       id: lastVideo ? lastVideo.id + 1 : 1,
       title: req.body.title,
-      author: req.body.author as string,
+      author: req.body.author ?? 'admin',
       canBeDownloaded: req.body.canBeDownloaded ?? false,
       minAgeRestriction: req.body.minAgeRestriction ?? null,
       createdAt: new Date().toISOString(),
       publicationDate: new Date().toISOString(),
-      availableResolutions: req.body.availableResolutions,
+      availableResolutions: req.body.availableResolutions ?? ['P144'],
     };
 
     //3. Добавляем созданное видео newVideo в БД
@@ -38,10 +38,6 @@ export const setupApp = (app: Express) => {
     res.status(HttpStatus.Created).send(newVideo);
   });
 
-  app.post('/videos', (req, res) => {
-    console.log('BODY:', req.body); // ← временно
-    // ...
-  });
 
   app.delete('/__tests__/data', (req, res) => {
     db.videos.length = 0; // ✅ очищает существующий массив

@@ -31,7 +31,7 @@ describe('/videos', () => {
       title: 'it-incubator video',
       author: expect.any(String),
       canBeDownloaded: false,
-      minAgeRestriction: expect.any(Number || null),
+      minAgeRestriction: null,
       createdAt: expect.any(String),
       publicationDate: expect.any(String),
       availableResolutions: ['P144'],

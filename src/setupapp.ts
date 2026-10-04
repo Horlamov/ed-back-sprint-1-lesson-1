@@ -1,4 +1,4 @@
-import express, { Express } from 'express';
+import express, { Express, request } from 'express';
 import { HttpStatus } from './core/types/http-status';
 import { db } from './db/db';
 import { Videos } from './core/types/type';
@@ -7,19 +7,33 @@ export const setupApp = (app: Express) => {
   app.use(express.json()); // middleware для парсинга JSON в теле запроса
 
   // обнуления для теста
-
+  app.delete('/__tests__/data', (req, res) => {
+    db.videos.length = 0; // ✅ очищает существующий массив
+    res.sendStatus(204);
+  });
 
   // основной роут
   app.get('/', (_req, res) => {
-    res.status(200).send('Hello world!');
+    if (db.videos.length !== 0) {
+      res.status(200).send('Hello world!');
+    } else {
+      res.status(404).send('Bye world!');
+    }
   });
 
-  //Возвращаем все видео
-  app.get('/videos', (_req, res) => {
-    res.status(HttpStatus.Ok_200).send(db.videos);
+  //возврат по title
+  app.get('/videos', (req, res) => {
+    let foundVideosQuery = db.videos;
+    if (req.query.title) {
+      foundVideosQuery = foundVideosQuery.filter(
+        (v) => v.title.indexOf(req.query.title as string) > -1,
+      );
+    }
+
+    res.json(foundVideosQuery);
   });
 
-  // Создаем новое видео
+  //Создаем новое видео
   app.post('/videos', (req, res) => {
     const lastVideo = db.videos[db.videos.length - 1];
     const newVideo: Videos = {
@@ -39,9 +53,20 @@ export const setupApp = (app: Express) => {
   });
 
 
-  app.delete('/__tests__/data', (req, res) => {
-    db.videos.length = 0; // ✅ очищает существующий массив
-    res.sendStatus(404);
+  // Одно видео по id
+  app.get('/videos/:id', (req, res) => {
+    const foundVideo = db.videos.find((v) => v.id === Number(req.params.id));
+    if (!foundVideo) {
+      res.sendStatus(HttpStatus.NotFound_404);
+      return;
+    }
+    res.status(HttpStatus.Ok_200).send(foundVideo);
   });
+
+  app.delete('/videos:id', (req, res) => {
+    db.videos = db.videos.filter( v => v.id !== +req.params.id)
+    res.sendStatus(HttpStatus.NoContent_204)
+  });
+
   return app;
 };

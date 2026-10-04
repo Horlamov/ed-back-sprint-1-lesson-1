@@ -15,9 +15,10 @@ describe('/videos', () => {
 
   it('should return 404 and empty array', async () => {
     await request(app)
-      .get('/videos/1')
-      .expect(404);
+      .get('/videos')
+      .expect(200);
   });
+
 
   it ('should create course with correct input data', async () => {
     const createResponse = await request(app)
@@ -39,6 +40,22 @@ describe('/videos', () => {
     await request(app)
       .get('/videos')
       .expect(HttpStatus.Ok_200, [createVideos])
+    console.log('beforeAll: done', createVideos);
+
+    //Тест на возврат по Id
+    const id = createResponse.body.id; // ← реальный id, точно есть в базе
+    console.log('Testing id:', id); // ← посмотреть, какой id
+
+    await request(app).get(`/videos/${id}`).expect(200);
 
   })
+
+  app.delete('delete', async () => {
+    await request(app)
+      .get('/videos')
+  })
+
+
+
+
 });

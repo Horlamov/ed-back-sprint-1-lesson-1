@@ -1,5 +1,6 @@
 import request = require('supertest');
 import { HttpStatus } from '../src/core/types/http-status';
+import { response } from 'express';
 const { app } = require('../src/');
 
 describe('/videos', () => {
@@ -48,11 +49,12 @@ describe('/videos', () => {
 
     await request(app).get(`/videos/${id}`).expect(200);
 
-  })
+  });
 
-  app.delete('delete', async () => {
+  it ('Delete', async () => {
     await request(app)
-      .get('/videos')
+    .get('/videos')
+    .expect(200);
   })
 
 

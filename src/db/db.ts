@@ -1,5 +1,5 @@
 // src/db/db.ts
-import { Videos } from '../core/types/type';
+import { Videos } from '../videos/types/video';
 
 
 export const db: { videos: Videos[] } = {

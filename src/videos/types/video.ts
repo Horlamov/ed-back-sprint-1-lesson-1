@@ -11,3 +11,4 @@ export type Videos = {
   publicationDate: string;
   availableResolutions: Resolutions[];
 };
+

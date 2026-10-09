@@ -1,7 +1,7 @@
 import express, { Express, request } from 'express';
-import { HttpStatus } from './core/types/http-status';
-import { db } from './db/db';
-import { Videos } from './videos/types/video';
+import { HttpStatus } from './core/types/http-status.ts';
+import { db } from './db/db.db';
+import { Videos } from './videos/types/video.ts';
 
 export const setupApp = (app: Express) => {
   app.use(express.json()); // middleware для парсинга JSON в теле запроса

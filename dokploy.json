@@ -1,0 +1,7 @@
+{
+  "applicationId": "YtPkT8IG11zWg7dYZtd2N",
+
+  "title": "Deploy from GitHub Actions",
+
+  "description": "Automated deployment on push to main"
+}

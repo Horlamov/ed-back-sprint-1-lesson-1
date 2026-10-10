@@ -1,31 +1,28 @@
-import request = require('supertest');
+import request from 'supertest';
+import express from 'express';
+import { setupApp } from '../src/setup-app';
 import { HttpStatus } from '../src/core/types/http-status';
-import { response } from 'express';
-const { app } = require('../src/');
 
 describe('/videos', () => {
   beforeAll(async () => {
-    await request(app).delete('/__tests__/data');
+    await request(app)
+      .delete('/__tests__/data')
+      .expect(HttpStatus.NoContent_204);
   });
 
   it('should return 200 and empty array', async () => {
-    await request(app)
-      .get('/videos')
-      .expect(200, []);
+    await request(app).get('/videos').expect(200, []);
   });
 
   it('should return 404 and empty array', async () => {
-    await request(app)
-      .get('/videos')
-      .expect(200);
+    await request(app).get('/videos').expect(200);
   });
 
-
-  it ('should create course with correct input data', async () => {
+  it('should create course with correct input data', async () => {
     const createResponse = await request(app)
       .post('/videos')
-      .send({title: 'it-incubator video'})
-      .expect(HttpStatus.Created_201)
+      .send({ title: 'it-incubator video' })
+      .expect(HttpStatus.Created_201);
 
     const createVideos = createResponse.body;
     expect(createVideos).toEqual({
@@ -38,9 +35,7 @@ describe('/videos', () => {
       publicationDate: expect.any(String),
       availableResolutions: ['P144'],
     });
-    await request(app)
-      .get('/videos')
-      .expect(HttpStatus.Ok_200, [createVideos])
+    await request(app).get('/videos').expect(HttpStatus.Ok_200, [createVideos]);
     console.log('beforeAll: done', createVideos);
 
     //Тест на возврат по Id
@@ -48,16 +43,9 @@ describe('/videos', () => {
     console.log('Testing id:', id); // ← посмотреть, какой id
 
     await request(app).get(`/videos/${id}`).expect(200);
-
   });
 
-  it ('Delete', async () => {
-    await request(app)
-    .get('/videos')
-    .expect(200);
-  })
-
-
-
-
+  it('Delete', async () => {
+    await request(app).get('/videos').expect(200);
+  });
 });

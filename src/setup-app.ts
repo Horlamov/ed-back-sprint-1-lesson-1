@@ -1,7 +1,8 @@
-import express, { Express, request } from 'express';
-import { HttpStatus } from './core/types/http-status.ts';
-import { db } from './db/db.db';
-import { Videos } from './videos/types/video.ts';
+import express, { Express } from 'express';
+import { HttpStatus } from './core/types/http-status';
+import { db } from './db/in-memory.db';
+import { Video } from './videos/types/video';
+import { VideoInputDto } from './videos/dto/video.input.dto';
 
 export const setupApp = (app: Express) => {
   app.use(express.json()); // middleware для парсинга JSON в теле запроса
@@ -36,14 +37,14 @@ export const setupApp = (app: Express) => {
 
 
     const lastVideo = db.videos[db.videos.length - 1];
-    const newVideo: Videos = {
+    const newVideo: Video = {
       id: lastVideo ? lastVideo.id + 1 : 1,
       title: req.body.title,
       author: req.body.author ?? 'admin',
       canBeDownloaded: req.body.canBeDownloaded ?? false,
       minAgeRestriction: req.body.minAgeRestriction ?? null,
-      createdAt: new Date().toISOString(),
-      publicationDate: new Date().toISOString(),
+      createdAt: new Date(),
+      publicationDate: new Date(),
       availableResolutions: req.body.availableResolutions ?? ['P144'],
     };
 

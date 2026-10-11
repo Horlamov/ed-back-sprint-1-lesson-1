@@ -4,6 +4,9 @@ import { setupApp } from '../src/setup-app';
 import { HttpStatus } from '../src/core/types/http-status';
 
 describe('/videos', () => {
+  const app = express();
+  setupApp(app);
+
   beforeAll(async () => {
     await request(app)
       .delete('/__tests__/data')

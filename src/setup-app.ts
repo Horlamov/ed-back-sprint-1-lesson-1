@@ -1,11 +1,15 @@
 import express, { Express } from 'express';
-import { HttpStatus } from './core/types/http-status';
 import { db } from './db/in-memory.db';
+import { HttpStatus } from './core/types/http-status';
 import { Video } from './videos/types/video';
-import { VideoInputDto } from './videos/dto/video.input.dto';
 
 export const setupApp = (app: Express) => {
   app.use(express.json()); // middleware для парсинга JSON в теле запроса
+
+  app.delete('/__tests__/data', (_req, res) => {
+    db.videos = [];
+    res.sendStatus(HttpStatus.NoContent_204);
+  });
 
   // основной роут
   app.get('/', (_req, res) => {
@@ -17,7 +21,7 @@ export const setupApp = (app: Express) => {
   });
 
   //Список всех видео
-  app.get('/videos', (req, res) => {
+  app.get('/videos', (_req, res) => {
     res.status(HttpStatus.Ok_200).send(db.videos);
   });
 

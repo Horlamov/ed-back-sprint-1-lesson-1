@@ -41,14 +41,17 @@ export const setupApp = (app: Express) => {
 
 
     const lastVideo = db.videos[db.videos.length - 1];
+    const createdAt = new Date();
+    const publicationDate = new Date(createdAt.getTime() + 24 * 60 * 60 * 1000);
+
     const newVideo: Video = {
       id: lastVideo ? lastVideo.id + 1 : 1,
       title: req.body.title,
       author: req.body.author ?? 'admin',
       canBeDownloaded: req.body.canBeDownloaded ?? false,
       minAgeRestriction: req.body.minAgeRestriction ?? null,
-      createdAt: new Date(),
-      publicationDate: new Date(),
+      createdAt: new Date().toISOString(),
+      publicationDate: new Date().toISOString(),
       availableResolutions: req.body.availableResolutions ?? ['P144'],
     };
 

@@ -2,15 +2,15 @@
 import { Resolution, Video } from '../videos/types/video';
 
 export const db = {
-  videos: <Video[]> [
+  videos: <Video[]>[
     {
       id: 1,
       title: 'front-end',
       author: 'admin',
       canBeDownloaded: false,
       minAgeRestriction: null,
-      createdAt: new Date(),
-      publicationDate: new Date(),
+      createdAt: new Date().toISOString(),
+      publicationDate: new Date().toISOString(),
       availableResolutions: [Resolution.P144],
     },
     {
@@ -19,8 +19,8 @@ export const db = {
       author: 'admin',
       canBeDownloaded: false,
       minAgeRestriction: null,
-      createdAt: new Date(),
-      publicationDate: new Date(),
+      createdAt: new Date().toISOString(),
+      publicationDate: new Date().toISOString(),
       availableResolutions: [Resolution.P360],
     },
     {
@@ -29,8 +29,8 @@ export const db = {
       author: 'admin',
       canBeDownloaded: false,
       minAgeRestriction: null,
-      createdAt: new Date(),
-      publicationDate: new Date(),
+      createdAt: new Date().toISOString(),
+      publicationDate: new Date().toISOString(),
       availableResolutions: [Resolution.P480],
     },
     {
@@ -39,8 +39,8 @@ export const db = {
       author: 'admin',
       canBeDownloaded: false,
       minAgeRestriction: null,
-      createdAt: new Date(),
-      publicationDate: new Date(),
+      createdAt: new Date().toISOString(),
+      publicationDate: new Date().toISOString(),
       availableResolutions: [Resolution.P1440],
     },
   ],

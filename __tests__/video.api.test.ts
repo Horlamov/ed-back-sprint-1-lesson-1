@@ -16,7 +16,7 @@ describe('/videos', () => {
   };
 
   beforeAll(async () => {
-    await request(app).delete('/__tests__/data').expect(HttpStatus.NoContent_204);
+    await request(app).delete('/testing/all-data').expect(HttpStatus.NoContent_204);
   });
 
   it('should return 200 and empty array', async () => {

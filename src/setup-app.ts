@@ -6,7 +6,7 @@ import { Video } from './videos/types/video';
 export const setupApp = (app: Express) => {
   app.use(express.json()); // middleware для парсинга JSON в теле запроса
 
-  app.delete('/__tests__/data', (_req, res) => {
+  app.delete('/testing/all-data', (_req, res) => {
     db.videos = [];
     res.sendStatus(HttpStatus.NoContent_204);
   });

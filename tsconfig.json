@@ -8,6 +8,9 @@
     "outDir": "./dist",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
+    //добавлена для дозаписи js в инпуты
+    "rewriteRelativeImportExtensions": true,
+    "isolatedModules": true,
 
     "forceConsistentCasingInFileNames": true,
     "strict": true,

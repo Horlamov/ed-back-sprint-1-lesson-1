@@ -51,7 +51,7 @@ export const setupApp = (app: Express) => {
       canBeDownloaded: req.body.canBeDownloaded ?? false,
       minAgeRestriction: req.body.minAgeRestriction ?? null,
       createdAt: new Date().toISOString(),
-      publicationDate: new Date().toISOString(),
+      publicationDate: publicationDate.toISOString(),
       availableResolutions: req.body.availableResolutions ?? ['P144'],
     };
 

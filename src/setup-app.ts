@@ -69,7 +69,8 @@ export const setupApp = (app: Express) => {
   app.put('/videos/:id', (req, res) => {
     const foundVideo = db.videos.find((v) => v.id === Number(req.params.id));
     if (!foundVideo) {
-      return res.sendStatus(HttpStatus.NotFound_404);
+      res.sendStatus(HttpStatus.NotFound_404);
+      return;
     }
       let errorsMessages: { message: string; field: string }[] = [];
       if (

@@ -44,6 +44,33 @@ export const setupApp = (app: Express) => {
     const lastVideo = db.videos[db.videos.length - 1];
     const createdAt = new Date();
     const publicationDate = new Date(createdAt.getTime() + 24 * 60 * 60 * 1000);
+    let errorsMessages: {message: string, field: string}[] = [];
+    if (
+      typeof req.body.title !== "string" ||
+      req.body.title.trim().length === 0 ||
+      req.body.title > 40
+    ) {
+      errorsMessages.push({message: 'Error title', field: 'title'});
+    }
+
+    if (
+      typeof req.body.author !== "string" ||
+      req.body.authot.trim().length === 0 ||
+      req.body.author.length > 20
+    ) {
+      errorsMessages.push({ message: 'Error author', field: 'title' });
+    }
+
+    if (!Array.isArray(req.body.availableResolutions) ||
+      req.body.availableResolutions.length === 0 ||
+      !req.body.availableResolutions.every((r:Resolution) => Object.values(Resolution).includes(r))
+    ) {
+      errorsMessages.push({
+        message: 'Error availableResolutions',
+        field: 'availableResolutions'
+      })
+    }
+
 
     const newVideo: Video = {
       id: lastVideo ? lastVideo.id + 1 : 1,
@@ -135,16 +162,12 @@ export const setupApp = (app: Express) => {
         return;
       }
 
-
-
-
       foundVideo.title = req.body.title;
       foundVideo.author = req.body.author;
       foundVideo.availableResolutions = req.body.availableResolutions;
       foundVideo.canBeDownloaded = req.body.canBeDownloaded;
       foundVideo.minAgeRestriction = req.body.minAgeRestriction;
       foundVideo.publicationDate = req.body.publicationDate;
-
 
       res.sendStatus(HttpStatus.NoContent_204);
 

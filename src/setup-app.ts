@@ -45,6 +45,7 @@ export const setupApp = (app: Express) => {
     const createdAt = new Date();
     const publicationDate = new Date(createdAt.getTime() + 24 * 60 * 60 * 1000);
     let errorsMessages: {message: string, field: string}[] = [];
+
     if (
       typeof req.body.title !== "string" ||
       req.body.title.trim().length === 0 ||
@@ -69,6 +70,13 @@ export const setupApp = (app: Express) => {
         message: 'Error availableResolutions',
         field: 'availableResolutions'
       })
+    }
+
+    if (
+      errorsMessages.length > 0
+    ) {
+      res.status(HttpStatus.BadRequest_400).json({errorsMessages});
+      return;
     }
 
 

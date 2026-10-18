@@ -146,7 +146,7 @@ export const setupApp = (app: Express) => {
       foundVideo.publicationDate = req.body.publicationDate;
 
 
-      return res.sendStatus(HttpStatus.NoContent_204);
+      res.sendStatus(HttpStatus.NoContent_204);
 
   });
 

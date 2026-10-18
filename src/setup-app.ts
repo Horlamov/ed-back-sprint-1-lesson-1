@@ -49,17 +49,17 @@ export const setupApp = (app: Express) => {
     if (
       typeof req.body.title !== "string" ||
       req.body.title.trim().length === 0 ||
-      req.body.title > 40
+      req.body.title.length > 40
     ) {
       errorsMessages.push({message: 'Error title', field: 'title'});
     }
 
     if (
       typeof req.body.author !== "string" ||
-      req.body.authot.trim().length === 0 ||
+      req.body.author.trim().length === 0 ||
       req.body.author.length > 20
     ) {
-      errorsMessages.push({ message: 'Error author', field: 'title' });
+      errorsMessages.push({ message: 'Error author', field: 'author' });
     }
 
     if (!Array.isArray(req.body.availableResolutions) ||

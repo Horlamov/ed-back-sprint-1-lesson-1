@@ -131,7 +131,8 @@ export const setupApp = (app: Express) => {
       if (
         errorsMessages.length > 0
       ) {
-        return res.status(HttpStatus.BadRequest_400).json({ errorsMessages })
+        res.status(HttpStatus.BadRequest_400).json({ errorsMessages })
+        return;
       }
 
 

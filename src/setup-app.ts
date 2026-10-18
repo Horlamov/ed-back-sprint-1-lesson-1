@@ -150,6 +150,19 @@ export const setupApp = (app: Express) => {
 
   });
 
+  app.delete('/videos/:id', (req, res) => {
+    const foundIndex = db.videos.findIndex((v) => v.id === Number(req.params.id));
+    if (foundIndex === -1) {
+      res.sendStatus(HttpStatus.NotFound_404);
+      return;
+    }
+    db.videos.splice(foundIndex, 1);
+    res.sendStatus(HttpStatus.NoContent_204);
+    return;
+  });
+
+
+
   //возврат по title
   app.get('/videos', (req, res) => {
     let foundVideosQuery = db.videos;

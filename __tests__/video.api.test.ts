@@ -1,5 +1,5 @@
 import request from 'supertest';
-import express from 'express';
+import express, { response } from 'express';
 import { setupApp } from '../src/setup-app';
 import { HttpStatus } from '../src/core/types/http-status';
 import { VideoInputDto } from '../src/videos/dto/video.input.dto';
@@ -53,12 +53,25 @@ describe('/videos', () => {
     await request(app).get('/videos').expect(HttpStatus.Ok_200, [createResponse.body]);
     await request(app).get(`/videos/${createResponse.body.id}`).expect(HttpStatus.Ok_200)
 
+
 //Тест на возврат по Id
     const id = createResponse.body.id; // ← реальный id, точно есть в базе
     console.log('Testing id:', id); // ← посмотреть, какой id
 
     await request(app).get(`/videos/${id}`).expect(200);
   });
+  let createdCourse: any = null;
+
+  // it('Put', async () => {
+  //   const createResponse = await request(app)
+  //     .post('/videos' + createdCourse.id)
+  //     .send({title: 'it-incubator course'})
+  //     .expect(HttpStatus.NoContent_204);
+  //
+  //   createdCourse = response.body;
+  // });
+
+
 
 it('Delete', async () => {
     await request(app).get('/videos').expect(200);

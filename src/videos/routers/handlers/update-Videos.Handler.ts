@@ -2,12 +2,11 @@ import {Request, Response} from 'express';
 import { db } from '../../../db/in-memory.db.ts';
 import { HttpStatus } from '../../../core/types/http-status.ts';
 import { Resolution } from '../../types/video.ts';
-import request from 'supertest';
 import {Video} from '../../types/video'
 import { VideoInputDto } from '../../dto/video.input.dto.ts';
 
 export function updateVideoHandler(
-  req: Request<{}, {}, Video, VideoInputDto>,
+  req: Request<{id: string}, {}, Video>,
   res: Response,
 ) {
   const foundVideo = db.videos.find((v) => v.id === Number(req.params.id));

@@ -1,6 +1,6 @@
 import request from 'supertest';
 import express, { response } from 'express';
-import { setupApp } from '../src/setup-app';
+import { setupApp } from '../src/setupapp';
 import { HttpStatus } from '../src/core/types/http-status';
 import { VideoInputDto } from '../src/videos/dto/video.input.dto';
 import { Resolution } from '../src/videos/types/video';

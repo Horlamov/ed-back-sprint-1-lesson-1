@@ -2,7 +2,7 @@ import { db } from '../db/in-memory.db.ts';
 import { Video } from '../videos/types/video.ts'
 
 
-export const productsRepository = {
+export const blogRepository = {
   findALl(): Video[] {
     return db.videos;
   },
